@@ -3,6 +3,16 @@ import { useParams } from 'react-router-dom';
 import { marked } from 'marked';
 import { getAllPosts } from '../../utils/blogUtils';
 
+// Configure marked options
+marked.setOptions({
+  gfm: true,
+  breaks: true,
+  sanitize: false,
+  smartLists: true,
+  smartypants: true,
+  xhtml: true
+});
+
 export default function BlogLayout() {
   const { slug } = useParams();
   const [post, setPost] = useState(null);
@@ -34,8 +44,10 @@ export default function BlogLayout() {
         {new Date(post.date).toLocaleDateString()}
       </p>
       <div
-        className="prose lg:prose-xl"
-        dangerouslySetInnerHTML={{ __html: marked(post.content) }}
+        className="prose lg:prose-xl max-w-none"
+        dangerouslySetInnerHTML={{
+          __html: marked(post.content || '')
+        }}
       />
     </article>
   );
