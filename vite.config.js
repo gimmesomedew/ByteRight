@@ -38,22 +38,18 @@ export default defineConfig({
       transformMixedEsModules: true
     },
     rollupOptions: {
-      external: ['react'],
       output: {
         format: 'es',
         generatedCode: {
           constBindings: true
         },
-        globals: {
-          react: 'React'
-        },
         manualChunks(id) {
           if (id.includes('node_modules')) {
+            if (id.includes('react/') || id.includes('react-dom/')) {
+              return 'react-vendor';
+            }
             if (id.includes('framer-motion')) {
               return 'framer-motion';
-            }
-            if (id.includes('react')) {
-              return 'react-vendor';
             }
             return 'vendor';
           }
