@@ -132,49 +132,63 @@ export default function Blog() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
+      {/* Category Filter */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-
-        {/* Blog Posts */}
-        <div className="bg-white rounded-lg shadow-sm p-8">
-          <Blog7 {...blogConfig} posts={posts} />
-
-          {/* Pagination */}
-          {pagination && pagination.totalPages > 1 && (
-            <div className="mt-12 border-t border-gray-100 pt-8">
-              <div className="flex justify-center items-center gap-4">
-                <button
-                  onClick={() => handlePageChange(currentPage - 1)}
-                  disabled={!pagination.hasPrevPage}
-                  className={`px-6 py-2 rounded-md flex items-center gap-2 ${pagination.hasPrevPage
-                    ? 'bg-red-600 text-white hover:bg-red-700 shadow-sm'
-                    : 'bg-gray-100 text-gray-400 cursor-not-allowed'}`}
-                >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                  </svg>
-                  Previous
-                </button>
-                <span className="px-4 py-2 text-gray-700 font-medium">
-                  Page {currentPage} of {pagination.totalPages}
-                </span>
-                <button
-                  onClick={() => handlePageChange(currentPage + 1)}
-                  disabled={!pagination.hasNextPage}
-                  className={`px-6 py-2 rounded-md flex items-center gap-2 ${pagination.hasNextPage
-                    ? 'bg-red-600 text-white hover:bg-red-700 shadow-sm'
-                    : 'bg-gray-100 text-gray-400 cursor-not-allowed'}`}
-                >
-                  Next
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-          )}
+        <div className="flex flex-wrap gap-2 mb-8">
+          <button
+            onClick={() => handleCategoryChange(null)}
+            className={`px-4 py-2 rounded-full text-sm font-medium ${!currentCategory
+              ? 'bg-red-600 text-white'
+              : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
+          >
+            All Posts
+          </button>
+          {categories.map(category => (
+            <button
+              key={category}
+              onClick={() => handleCategoryChange(category)}
+              className={`px-4 py-2 rounded-full text-sm font-medium ${currentCategory === category
+                ? 'bg-red-600 text-white'
+                : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
+            >
+              {category}
+            </button>
+          ))}
         </div>
       </div>
+
+      {/* Blog Posts */}
+      <Blog7 {...blogConfig} posts={posts} />
+
+      {/* Pagination */}
+      {pagination && pagination.totalPages > 1 && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="flex justify-center gap-2">
+            <button
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={!pagination.hasPrevPage}
+              className={`px-4 py-2 rounded ${pagination.hasPrevPage
+                ? 'bg-red-600 text-white hover:bg-red-700'
+                : 'bg-gray-100 text-gray-400 cursor-not-allowed'}`}
+            >
+              Previous
+            </button>
+            <span className="px-4 py-2 text-gray-700">
+              Page {currentPage} of {pagination.totalPages}
+            </span>
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={!pagination.hasNextPage}
+              className={`px-4 py-2 rounded ${pagination.hasNextPage
+                ? 'bg-red-600 text-white hover:bg-red-700'
+                : 'bg-gray-100 text-gray-400 cursor-not-allowed'}`}
+            >
+              Next
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
