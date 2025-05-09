@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Hero } from '../components/AnimatedHero';
-import { Features } from '../components/Features';
+import { Features } from '../components/FeaturesNew';
 import { ErrorBoundary } from '../components/ErrorBoundary';
 
 const Home = () => {
