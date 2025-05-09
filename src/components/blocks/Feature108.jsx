@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button } from "../ui/Button";
+import { Button } from "../ui/CustomButton";
 
 export function Feature108({ badge, heading, description, tabs }) {
   const [activeTab, setActiveTab] = useState(tabs[0].value);
