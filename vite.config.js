@@ -5,6 +5,9 @@ import fs from 'fs'
 
 // https://vite.dev/config/
 export default defineConfig({
+  esbuild: {
+    jsxInject: `import React from 'react'`
+  },
   optimizeDeps: {
     include: ['gray-matter'],
     exclude: ['framer-motion']
@@ -32,11 +35,17 @@ export default defineConfig({
     }
   ],
   build: {
+    target: 'esnext',
+    minify: 'esbuild',
     commonjsOptions: {
       transformMixedEsModules: true
     },
     rollupOptions: {
       output: {
+        format: 'es',
+        generatedCode: {
+          constBindings: true
+        },
         manualChunks(id) {
           if (id.includes('node_modules')) {
             if (id.includes('framer-motion')) {
