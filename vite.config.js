@@ -32,28 +32,22 @@ export default defineConfig({
     }
   ],
   build: {
-    target: 'esnext',
+    target: 'es2015',
     minify: 'esbuild',
+    sourcemap: true,
     commonjsOptions: {
       transformMixedEsModules: true
     },
     rollupOptions: {
+      input: {
+        main: './index.html'
+      },
       output: {
         format: 'es',
-        generatedCode: {
-          constBindings: true
-        },
-        manualChunks(id) {
-          if (id.includes('node_modules')) {
-            if (id.includes('react/') || id.includes('react-dom/')) {
-              return 'react-vendor';
-            }
-            if (id.includes('framer-motion')) {
-              return 'framer-motion';
-            }
-            return 'vendor';
-          }
-        }
+        entryFileNames: '[name].[hash].js',
+        chunkFileNames: '[name].[hash].js',
+        assetFileNames: '[name].[hash][extname]',
+        manualChunks: undefined
       }
     }
   },
