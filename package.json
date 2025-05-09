@@ -6,7 +6,7 @@
   "scripts": {
     "sync-blog": "node scripts/sync-blog.mjs",
     "dev": "vite",
-    "build": "vite build",
+    "build": "NODE_ENV=production VITE_CJS_IGNORE_WARNING=true vite build --force",
     "lint": "eslint .",
     "preview": "vite preview"
   },
