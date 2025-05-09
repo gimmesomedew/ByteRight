@@ -1,17 +1,4 @@
-import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import { getCategories } from '../utils/blogUtils';
-
 const About = () => {
-  const [categories, setCategories] = useState([]);
-
-  useEffect(() => {
-    const loadCategories = async () => {
-      const cats = await getCategories();
-      setCategories(cats);
-    };
-    loadCategories();
-  }, []);
   const team = [
     {
       name: 'John Smith',
@@ -88,7 +75,7 @@ const About = () => {
         </div>
 
         {/* Team Section */}
-        <div className="mb-20">
+        <div>
           <h2 className="text-3xl font-bold mb-8">Our Team</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {team.map((member) => (
@@ -99,45 +86,6 @@ const About = () => {
                 <p className="text-gray-600 text-center">{member.bio}</p>
               </div>
             ))}
-          </div>
-        </div>
-
-        {/* Blog Section */}
-        <div>
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">ByteRight Blog</h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-8">
-              Stay up to date with the latest web development trends, WordPress tips, and digital transformation strategies.
-            </p>
-            
-            {/* Category Filters */}
-            <div className="flex flex-wrap gap-2 justify-center mb-8">
-              <Link
-                to="/blog"
-                className="px-4 py-2 rounded-full text-sm font-medium transition-colors bg-red-600 text-white shadow-sm hover:bg-red-700"
-              >
-                All Posts
-              </Link>
-              {categories.map(category => (
-                <Link
-                  key={category}
-                  to={`/blog?category=${encodeURIComponent(category)}`}
-                  className="px-4 py-2 rounded-full text-sm font-medium transition-colors bg-white text-gray-600 hover:bg-gray-50 border border-gray-200"
-                >
-                  {category}
-                </Link>
-              ))}
-            </div>
-
-            <Link
-              to="/blog"
-              className="inline-flex items-center px-6 py-3 rounded-md bg-red-600 text-white hover:bg-red-700 transition-colors shadow-sm"
-            >
-              View All Posts
-              <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
           </div>
         </div>
       </div>
