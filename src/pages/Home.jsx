@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import { Hero } from '../components/animated-hero';
-import { Features } from '../components/features';
-import { ErrorBoundary } from '../components/error-boundary';
+import { Hero } from '../components/AnimatedHero';
+import { Features } from '../components/Features';
+import { ErrorBoundary } from '../components/ErrorBoundary';
 
 const Home = () => {
   const testimonials = [
