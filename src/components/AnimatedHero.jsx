@@ -64,4 +64,4 @@ const AnimatedHero = () => {
   );
 };
 
-export { AnimatedHero as Hero };
+export default AnimatedHero;
