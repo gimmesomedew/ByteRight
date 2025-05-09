@@ -6,6 +6,7 @@ import mdx from '@mdx-js/rollup'
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/',
   optimizeDeps: {
     include: ['gray-matter'],
     exclude: ['framer-motion']
