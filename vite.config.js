@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { resolve } from 'path'
 import fs from 'fs'
+import mdx from '@mdx-js/rollup'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -10,7 +11,15 @@ export default defineConfig({
     exclude: ['framer-motion']
   },
   plugins: [
-    react(),
+    react({
+      jsxRuntime: 'classic',
+      babel: {
+        plugins: [
+          ['@babel/plugin-transform-react-jsx', { runtime: 'classic' }]
+        ]
+      }
+    }),
+    mdx(),
     {
       name: 'markdown-loader',
       resolveId(source) {
@@ -35,19 +44,20 @@ export default defineConfig({
     target: 'es2015',
     minify: 'esbuild',
     sourcemap: true,
+    outDir: 'dist',
+    assetsDir: 'assets',
+    emptyOutDir: true,
     commonjsOptions: {
       transformMixedEsModules: true
     },
     rollupOptions: {
-      input: {
-        main: './index.html'
-      },
+      input: './index.html',
       output: {
         format: 'es',
-        entryFileNames: '[name].[hash].js',
-        chunkFileNames: '[name].[hash].js',
-        assetFileNames: '[name].[hash][extname]',
-        manualChunks: undefined
+        entryFileNames: 'assets/[name].[hash].js',
+        chunkFileNames: 'assets/[name].[hash].js',
+        assetFileNames: 'assets/[name].[hash][extname]',
+        inlineDynamicImports: false
       }
     }
   },
